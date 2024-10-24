@@ -156,6 +156,23 @@ app.get('/items', (req, res) => {
     });
 });
 
+// Route Patch Item by ID
+app.patch('/items/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const sql = 'UPDATE items SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'item:', err);
+            return res.status(500).send('Erreur lors de la mise à jour de l\'item');
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send('Item non trouvé');
+        }
+        res.json({ message: 'Item mis à jour avec succès' });
+    });
+});
 
 // Route pour les CATEGORIES//
 // Route All categories
@@ -237,6 +254,24 @@ app.delete('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
         } else {
             res.json({ message: 'categories supprimé avec succès' });
         }
+    });
+});
+
+// Route Patch catégories by ID
+app.patch('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const sql = 'UPDATE categories SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de la catégories:', err);
+            return res.status(500).send('Erreur lors de la mise à jour de la catégories');
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send('catégories non trouvé');
+        }
+        res.json({ message: 'catégories mis à jour avec succès' });
     });
 });
 
@@ -336,6 +371,27 @@ app.get('/formulas', (req, res) => {
         res.json(results);
     });
 });
+
+// Route Patch formulas by ID
+app.patch('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const sql = 'UPDATE formulas SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de la formulas', err);
+            return res.status(500).send('Erreur lors de la mise à jour de la formulas');
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send('Formulas non trouvé');
+        }
+        res.json({ message: 'Formulas mis à jour avec succès' });
+    });
+});
+
+
 app.listen(port, () => {
     console.log(`API is running on http://localhost:${port}`);
 });
+
