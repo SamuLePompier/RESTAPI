@@ -16,14 +16,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/items",
+							"raw": "http://localhost:3000/items/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"items"
+								"items",
+								""
 							]
 						}
 					},
@@ -103,15 +104,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/items/",
+							"raw": "http://localhost:3000/formulas",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"items",
-								""
+								"formulas"
 							]
 						}
 					},
@@ -201,6 +201,15 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"description\": \"\",\n    \"price\": ,\n    \"category_id\": \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/items/",
 							"protocol": "http",
@@ -333,7 +342,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/categories/8",
+							"raw": "http://localhost:3000/categories/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -341,7 +350,7 @@
 							"port": "3000",
 							"path": [
 								"categories",
-								"8"
+								""
 							]
 						}
 					},
@@ -368,7 +377,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/categories/8",
+							"raw": "http://localhost:3000/categories/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -376,7 +385,7 @@
 							"port": "3000",
 							"path": [
 								"categories",
-								"8"
+								""
 							]
 						}
 					},
@@ -385,8 +394,32 @@
 				{
 					"name": "Patch categories",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "admin1234",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/categories/",
 							"protocol": "http",
@@ -596,10 +629,34 @@
 				{
 					"name": "Patch formulas",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "admin1234",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"price\": ,\n    \"categories\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/formulas/",
+							"raw": "http://localhost:3000/formulas/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -607,7 +664,7 @@
 							"port": "3000",
 							"path": [
 								"formulas",
-								""
+								"2"
 							]
 						}
 					},
