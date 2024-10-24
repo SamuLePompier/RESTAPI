@@ -72,23 +72,23 @@ Items
 
 •	GET /items : Récupérer tous les items, avec possibilité de filtrage par nom, prix, description et catégorie.
 
-•	GET /items/id : Récupérer un item par son ID.
+•	GET /items/:id : Récupérer un item par son ID.
 
 •	POST /items : Ajouter un nouvel item (Admin uniquement).
 
-•	PUT /items/id : Mettre à jour un item existant par son ID (Admin uniquement).
+•	PUT /items/:id : Mettre à jour un item existant par son ID (Admin uniquement).
 
-•	DELETE /items/id : Supprimer un item par son ID (Admin uniquement).
+•	DELETE /items/:id : Supprimer un item par son ID (Admin uniquement).
 
 Catégories
 
 •	GET /categories : Récupérer toutes les catégories.
 
-•	GET /categories/id : Récupérer une catégorie par son ID.
+•	GET /categories/:id : Récupérer une catégorie par son ID.
 
 •	POST /categories : Ajouter une nouvelle catégorie (Admin uniquement).
 
-•	PUT /categories/id : Mettre à jour une catégorie existante par son ID (Admin uniquement).
+•	PUT /categories/:id : Mettre à jour une catégorie existante par son ID (Admin uniquement).
 
 •	DELETE /categories/:id : Supprimer une catégorie par son ID (Admin uniquement).
 
@@ -96,13 +96,13 @@ Formules
 
 •	GET /formulas : Récupérer toutes les formules, avec possibilité de filtrage par nom, prix et catégories.
 
-•	GET /formulas/id : Récupérer une formule par son ID.
+•	GET /formulas/:id : Récupérer une formule par son ID.
 
 •	POST /formulas : Ajouter une nouvelle formule (Admin uniquement).
 
-•	PUT /formulas/id : Mettre à jour une formule existante par son ID (Admin uniquement).
+•	PUT /formulas/:id : Mettre à jour une formule existante par son ID (Admin uniquement).
 
-•	DELETE /formulas/id : Supprimer une formule par son ID (Admin uniquement).
+•	DELETE /formulas/:id : Supprimer une formule par son ID (Admin uniquement).
 
 Pour tester les routes sur l'application Postman, utilisez http://localhost:3000 suivi de la commande que vous souhaitez exécuter.
 
