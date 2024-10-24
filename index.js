@@ -24,13 +24,12 @@ db.connect((err) => {
     console.log('Connecté à la base de données MySQL');
 });
  
-// Pour utiliser le middleware JSON
 app.use(express.json());
 
 const basicAuth = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).send('Authorization header missing');
+        return res.status(401).send('Non autorisé');
     }
 
     const [username, password] = Buffer.from(authHeader.split(' ')[1], 'base64')
@@ -39,24 +38,23 @@ const basicAuth = (req, res, next) => {
 
     const user = users[username];
     if (!user || user.password !== password) {
-        return res.status(403).send('Invalid credentials');
+        return res.status(403).send('Accés refusé : mot de passe ou nom d\'utilisateur incorrect');
     }
 
-    req.user = user; // Attach user to the request
+    req.user = user; 
     next();
 };
 
-// Role-based Access Control Middleware
 const authorize = (role) => {
     return (req, res, next) => {
         if (req.user.role !== role) {
-            return res.status(403).send('Access denied');
+            return res.status(403).send('Accés refusé : Vous n\'avez pas les autorisations nécessaires');
         }
         next();
     };
 };
 // Route pour les ITEMS//
-// Route pour récupérer un item par ID(get)
+// Route All Items by ID
 app.get('/items/:id', (req, res) => {
     const { id } = req.params;
     const sql = 'SELECT * FROM items WHERE id = ?';
@@ -74,7 +72,7 @@ app.get('/items/:id', (req, res) => {
     });
 });
 
-// Route pour ajouter un nouvel item (admin uniquement-create)
+// Route Create Items
 app.post('/items', basicAuth, authorize('admin'), (req, res) => {
     const { id, name, price, description, category_id } = req.body;  // Adapte en fonction des colonnes de ta table
     const sql = 'INSERT INTO items (id, name, price, description, category_id) VALUES (?, ?, ?, ?, ?)';
@@ -88,7 +86,7 @@ app.post('/items', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
-// Route pour mettre à jour un item par ID (admin uniquement-UPDATE)
+// Route Update Items by ID
 app.put('/items/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const { name, price, description, category_id } = req.body;
@@ -107,7 +105,7 @@ app.put('/items/:id', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
-// Route pour supprimer un item par ID (admin uniquement-DELETE)
+// Route Delete Items by ID
 app.delete('/items/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const sql = 'DELETE FROM items WHERE id = ?';
@@ -126,14 +124,12 @@ app.delete('/items/:id', basicAuth, authorize('admin'), (req, res) => {
 });
 
 
-// Route pour filtrer les item(get-parameters)
+// Route Filtrer et Get All Items
 app.get('/items', (req, res) => {
     const { name, price, description, category_id } = req.query;
-    // Début de la requête SQL
     let sql = 'SELECT * FROM items WHERE 1=1';
     const params = [];
  
-    // Ajout des filtres
     if (name) {
         sql += ' AND name LIKE ?';
         params.push(`%${name}%`);
@@ -150,8 +146,6 @@ app.get('/items', (req, res) => {
         sql += ' AND category_id = ?';
         params.push(category_id);
     }
- 
-    // Exécution de la requête
     db.query(sql, params, (err, results) => {
         if (err) {
             console.error('Erreur lors de la récupération des items:', err);
@@ -163,21 +157,21 @@ app.get('/items', (req, res) => {
 });
 
 
-    // Route pour les CATEGORIES//
-  // Route pour récupérer tous les categories(get)
+// Route pour les CATEGORIES//
+// Route All categories
 app.get('/categories', (req, res) => {
-    const sql = 'SELECT * FROM categories';  // Adapte le nom de ta table
+    const sql = 'SELECT * FROM categories'; 
     db.query(sql, (err, results) => {
         if (err) {
             console.error('Erreur lors de la récupération des categories:', err);
             res.status(500).send('Erreur lors de la récupération des categories');
             return;
         }
-        res.json(results); // Renvoie les résultats en JSON
+        res.json(results); 
     });
 });
 
-// Route pour récupérer une categories par ID(get)
+// Route Categories by ID
 app.get('/categories/:id', (req, res) => {
     const { id } = req.params;
     const sql = 'SELECT * FROM categories WHERE id = ?';
@@ -195,7 +189,7 @@ app.get('/categories/:id', (req, res) => {
     });
 });
 
-// Route pour ajouter une nouvelle catégories  (admin uniquement-create)
+// Route Create Categories
 app.post('/categories', basicAuth, authorize('admin'), (req, res) => {
     const { id, name } = req.body;  // Adapte en fonction des colonnes de ta table
     const sql = 'INSERT INTO categories (id, name) VALUES (?, ?)';
@@ -209,7 +203,7 @@ app.post('/categories', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
-// Route pour mettre à jour un categories par ID (admin uniquement-UPDATE)
+// Route Update Categories by ID
 app.put('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
@@ -228,7 +222,7 @@ app.put('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
-// Route pour supprimer un categories par ID (admin uniquement-DELETE)
+// Route Delete Categories by ID
 app.delete('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const sql = 'DELETE FROM categories WHERE id = ?';
@@ -246,8 +240,8 @@ app.delete('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
-     // Route pour les formulas//
-// Route pour récupérer un formulas par ID(get)
+// Route pour les formulas//
+// Route Formula by ID
 app.get('/formulas/:id', (req, res) => {
     const { id } = req.params;
     const sql = 'SELECT * FROM formulas WHERE id = ?';
@@ -264,7 +258,7 @@ app.get('/formulas/:id', (req, res) => {
         }
     });
 });
-// Route pour ajouter un nouvel formulas (admin uniquement-create)
+// Route Create Formulas
 app.post('/formulas', basicAuth, authorize('admin'), (req, res) => {
     const {name, price, categories} = req.body;  // Adapte en fonction des colonnes de ta table
     const sql = 'INSERT INTO formulas (name, price, categories) VALUES (?, ?, ?)';
@@ -277,7 +271,7 @@ app.post('/formulas', basicAuth, authorize('admin'), (req, res) => {
         res.status(201).json({ message: 'formulas ajouté avec succès', formulasId: result.insertId });
     });
 });
-// Route pour mettre à jour une formulas par ID (admin uniquement-UPDATE)
+// Route Update Formulas by ID
 app.put('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const { name, price, categories} = req.body;
@@ -295,7 +289,7 @@ app.put('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
         }
     });
 });
-// Route pour supprimer une formulas par ID (admin uniquement-DELETE)
+// Route Delete Formulas by ID
 app.delete('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const sql = 'DELETE FROM formulas WHERE id = ?';
@@ -313,14 +307,12 @@ app.delete('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
-    // Route pour filtrer les formulas(get-parameters)
+    // Route pour filtrer et Get All Formulas
 app.get('/formulas', (req, res) => {
     const { name, price, categories } = req.query;
-    // Début de la requête SQL
     let sql = 'SELECT * FROM formulas WHERE 1=1';
     const params = [];
  
-    // Ajout des filtres
     if (name) {
         sql += ' AND name LIKE ?';
         params.push(`%${name}%`);
@@ -335,7 +327,6 @@ app.get('/formulas', (req, res) => {
         params.push(categories);
     }
  
-    // Exécution de la requête
     db.query(sql, params, (err, results) => {
         if (err) {
             console.error('Erreur lors de la récupération des formulas:', err);
