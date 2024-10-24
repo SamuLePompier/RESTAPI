@@ -72,13 +72,15 @@ Items
 
 •	GET /items : Récupérer tous les items, avec possibilité de filtrage par nom, prix, description et catégorie.
 
-•	GET /items/:id : Récupérer un item par son ID.
+•	GET /items/id : Récupérer un item par son ID.
 
 •	POST /items : Ajouter un nouvel item (Admin uniquement).
 
-•	PUT /items/:id : Mettre à jour un item existant par son ID (Admin uniquement).
+•	PUT /items/id : Mettre à jour un item existant par son ID (Admin uniquement).
 
-•	DELETE /items/:id : Supprimer un item par son ID (Admin uniquement).
+•	DELETE /items/id : Supprimer un item par son ID (Admin uniquement).
+
+•   PATCH /items/id : Mettre à jour partiellement un item existant par son ID (Admin uniquement).
 
 Catégories
 
@@ -92,6 +94,8 @@ Catégories
 
 •	DELETE /categories/:id : Supprimer une catégorie par son ID (Admin uniquement).
 
+•   PATCH /categories/id : Mettre à jour partiellement une categories existante par son ID (Admin uniquement).
+
 Formules
 
 •	GET /formulas : Récupérer toutes les formules, avec possibilité de filtrage par nom, prix et catégories.
@@ -103,6 +107,8 @@ Formules
 •	PUT /formulas/:id : Mettre à jour une formule existante par son ID (Admin uniquement).
 
 •	DELETE /formulas/:id : Supprimer une formule par son ID (Admin uniquement).
+
+•   PATCH /items/id : Mettre à jour partiellement une formulas existante par son ID (Admin uniquement).
 
 Pour tester les routes sur l'application Postman, utilisez http://localhost:3000 suivi de la commande que vous souhaitez exécuter.
 
