@@ -1,0 +1,23 @@
+services:
+  phpmyadmin:
+    container_name: restaurant-phpmyadmin
+    image: phpmyadmin
+    environment:
+      - PMA_HOST=restaurant-database
+    ports:
+      - "6060:80"
+    networks:
+      - restaurant-network
+
+  database:
+    container_name: restaurant-database
+    image: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=teo
+    ports:
+      - "3306:3306"
+    networks:
+      - restaurant-network
+
+networks:
+  restaurant-network:
