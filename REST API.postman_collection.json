@@ -3,7 +3,8 @@
 		"_postman_id": "61c333c6-76dd-495b-86b1-f0c3c299ad49",
 		"name": "REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39062030"
+		"_exporter_id": "39062030",
+		"_collection_link": "https://digi14-2036.postman.co/workspace/DIGI1-Workspace~3cb93485-5d97-4acd-8cdb-2a7f3f177c40/collection/39062030-61c333c6-76dd-495b-86b1-f0c3c299ad49?action=share&source=collection_link&creator=39062030"
 	},
 	"item": [
 		{
@@ -146,7 +147,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/items/28",
+							"raw": "http://localhost:3000/items/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -154,7 +155,7 @@
 							"port": "3000",
 							"path": [
 								"items",
-								"28"
+								""
 							]
 						}
 					},
@@ -179,6 +180,26 @@
 							]
 						},
 						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch items",
+					"request": {
+						"method": "PATCH",
 						"header": [],
 						"url": {
 							"raw": "http://localhost:3000/items/",
@@ -360,6 +381,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Patch categories",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -536,6 +577,26 @@
 							]
 						},
 						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/formulas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"formulas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch formulas",
+					"request": {
+						"method": "GET",
 						"header": [],
 						"url": {
 							"raw": "http://localhost:3000/formulas/",
